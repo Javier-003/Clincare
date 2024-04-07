@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/Captura_de_pantalla_2024-03-10_082703-removebg-preview.png') }}">
+   
+    <title>Home</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-light-subtle">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ url_for('paciente') }}">CliniCare</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" shref="{{ url_for('paciente') }}">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('mi_historial') }}">Mi Historial</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for( 'logout') }}">Cerrar sesion</a>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <h3 style="text-align: center;" class="mb-3 mt-3">Añadir o actualizar información</h3>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Información personal</h5>
+                    </div>
+                    {% if usuario %}
+                    <div class="card-body">
+                        <small>Nombre</small>
+                        <input type="text" class="form-control" value="{{ usuario.nombre }}" name="area_laboral" readonly>
+                        <small>Genero</small>
+                        <input type="text" class="form-control" value="{{ usuario.genero }}" name="genero" readonly>
+                        <small>Fecha de Nacimiento</small>
+                        <input type="text" class="form-control" value="{{ usuario.fecha_nacimiento }}" name="fecha" readonly>
+                        <small>Teléfono</small>
+                        <input type="text" class="form-control" value="{{ usuario.telefono }}" name="telefono" readonly>
+                        <small>Correo</small>
+                        <input type="text" class="form-control" value="{{ usuario.correo }}" name="correo" readonly>
+                        <small>Ubicación</small>
+                        <input type="text" class="form-control" value="{{ usuario.estado }}, {{ usuario.municipio }}, {{ usuario.ciudad }}, {{ usuario.colonia }}, {{ usuario.cp }}" name="ubicacion" readonly>
+                        <small>Numero de seguro social</small>
+                        <input type="text" class="form-control" value="{{ usuario.numeroSocial }}" name=" numeroSocial" readonly>
+                        <button class="btn btn-primary btn-sm" id="btn-edit{{ usuario._id }}" data-bs-toggle="modal" data-bs-target="#modal{{ usuario._id }}">Actualizar datos</button>
+                    </div>
+                    <div class="modal fade" id="modal{{ usuario._id }}" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Actualizar datos</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/Actualizar_datos" method="POST">
+
+
+                                        <div class="form-group">
+                                            <label for="N_telefono">Teléfono:</label>
+                                            <input type="text" class="form-control" id="N_telefono" name="N_telefono" value="{{ usuario.telefono }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="N_correo">Correo:</label>
+                                            <input type="email" class="form-control" id="N_correo" name="N_correo" value="{{ usuario.correo }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="N_estado">Estado:</label>
+                                            <input type="text" class="form-control" id="N_estado" name="N_estado" value="{{ usuario.estado }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="N_municipio">Municipio:</label>
+                                            <input type="text" class="form-control" id="N_municipio" name="N_municipio" value="{{ usuario.municipio }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="N_ciudad">Ciudad:</label>
+                                            <input type="text" class="form-control" id="N_ciudad" name="N_ciudad" value="{{ usuario.ciudad }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="N_cp">Código Postal:</label>
+                                            <input type="text" class="form-control" id="N_cp" name="N_cp" value="{{ usuario.cp }}" required>
+                                        </div>
+                                        <input type="hidden" name="id_usuario" value="{{ usuario._id }}">
+                                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p>Usuario no encontrado</p>
+                    {% endif %}
+                </div>
+            </div>
+
+
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Contacto de Emergencia</h5>
+                    </div>
+                    {% if historial_clinico %}
+                    <div class="card-body">
+                        <small>Nombre del contacto</small> {% if historial_clinico.contacto_emergencia.nombre_contacto %}
+                        <p>{{ historial_clinico.contacto_emergencia.nombre_contacto | join("") }}</p>
+                        {% else %}
+                        <p>No hay información disponible.</p>
+                        {% endif %}
+                        <small>Telefono del contacto</small> {% if historial_clinico.contacto_emergencia.telefono_contacto %}
+                        <p>{{ historial_clinico.contacto_emergencia.telefono_contacto | join("") }}</p>
+                        {% else %}
+                        <p>No hay información disponible.</p>
+                        {% endif %}
+                        <small>Parentesco con el paciente</small> {% if historial_clinico.contacto_emergencia.relacion_con_paciente %}
+                        <p>{{ historial_clinico.contacto_emergencia.relacion_con_paciente | join("") }}</p>
+                        {% else %}
+                        <p>No hay información disponible.</p>
+                        {% endif %}
+                        <div>
+                            <button class="btn btn-primary btn-sm" id="btn-edit{{ historial_clinico._id }}" data-bs-toggle="modal" data-bs-target="#modal2{{ historial_clinico._id }}">Actualizar datos</button>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="modal2{{ historial_clinico._id }}" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title fs-5" id="exampleModalLabel">Actualizar contacto de emergencia</h3>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/Contacto_emergencia" method="POST">
+                                        <div class="form-group">
+                                            <label>Nombre de la persona:</label>
+                                            <input type="text" class="form-control" value="{{ historial_clinico.contacto_emergencia.nombre_contacto }}" id="nombre_contacto" name="nombre_contacto" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Telefono:</label>
+                                            <input type="text" class="form-control" value="{{ historial_clinico.contacto_emergencia.telefono_contacto}}" id="telefono_contacto" name="telefono_contacto" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Parentesco con el paciente (esposa, madre, hijo):</label>
+                                            <input type="text" class="form-control" value="{{ historial_clinico.contacto_emergencia.relacion_con_paciente }}" id="relacion_contacto" name="relacion_contacto" required>
+                                        </div>
+                                        <input type="hidden" name="id_historial" value="{{ historial_clinico._id }}">
+                                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="card-body">
+                        <p>Historial clínico no encontrado.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+
+
+
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Antecedentes medicos</h5>
+                    </div>
+                    {% if historial_clinico %}
+                    <div class="card-body">
+                        <small>Enfermedades cronicas</small> {% if historial_clinico.antecedentes_medicos.enfermedades_cronicas %}
+                        <p>{{ historial_clinico.antecedentes_medicos.enfermedades_cronicas | join("") }}</p>
+                        {% else %}
+                        <p>No hay información disponible.</p>
+                        {% endif %}
+                        <small>Alergias</small> {% if historial_clinico.antecedentes_medicos.alergias %}
+                        <p>{{ historial_clinico.antecedentes_medicos.alergias | join("") }}</p>
+                        {% else %}
+                        <p>No hay información disponible.</p>
+                        {% endif %}
+                        <small>Cirugias previas</small> {% if historial_clinico.antecedentes_medicos.cirugias_previas %}
+                        <p>{{ historial_clinico.antecedentes_medicos.cirugias_previas | join("") }}</p>
+                        {% else %}
+                        <p>No hay información disponible.</p>
+                        {% endif %}
+                        <small>Traumatismos o lesiones</small> {% if historial_clinico.antecedentes_medicos.traumatismos_o_lesiones %}
+                        <p>{{ historial_clinico.antecedentes_medicos.traumatismos_o_lesiones | join("") }}</p>
+                        {% else %}
+                        <p>No hay información disponible.</p>
+                        {% endif %}
+                        <div>
+                            <button class="btn btn-primary btn-sm" id="btn-edit{{ historial_clinico._id }}" data-bs-toggle="modal" data-bs-target="#modal{{ historial_clinico._id }}">Actualizar datos</button>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="modal{{ historial_clinico._id }}" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Actualizar datos</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/Actualizar_antecedentes" method="POST">
+                                        <div class="form-group">
+                                            <label>Otra enfermedad crónica:</label>
+                                            <input type="text" class="form-control" value="{{ historial_clinico.antecedentes_medicos.enfermedades_cronicas }}" id="N_enfermedad_cronica" name="N_enfermedad_cronica" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Otra alergia:</label>
+                                            <input type="text" class="form-control" value="{{ historial_clinico.antecedentes_medicos.alergias }}" id="N_alergia" name="N_alergia" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Otra cirugía previa:</label>
+                                            <input type="text" class="form-control" value="{{ historial_clinico.antecedentes_medicos.cirugias_previas }}" id="N_cirugia_previa" name="N_cirugia_previa" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Otro traumatismo o lesión:</label>
+                                            <input type="text" class="form-control" value="{{ historial_clinico.antecedentes_medicos.traumatismos_o_lesiones }}" id="N_traumatismo_lesion" name="N_traumatismo_lesion" required>
+                                        </div>
+                                        <input type="hidden" name="id_historial" value="{{ historial_clinico._id }}">
+                                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="card-body">
+                        <p>Historial clínico no encontrado.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Estilo de vida</h5>
+                    </div>
+                    {% if historial_clinico %}
+                    <div class="card-body">
+                        <small>Nivel de estres: </small> {% if historial_clinico.estilo_vida.nivel_estres %}
+                        <p>{{ historial_clinico.estilo_vida.nivel_estres | join("") }}</p>
+                        {% else %}
+                        <p>No hay información disponible.</p>
+                        {% endif %}
+                        <small>¿Hace ejercico?</small> {% if historial_clinico.estilo_vida.hace_ejercicio %}
+                        <p>{{ historial_clinico.estilo_vida.hace_ejercicio | join("") }}</p>
+                        {% else %}
+                        <p>No hay información disponible.</p>
+                        {% endif %}
+                        <small>frecuencia en la que hace ejercico: </small> {% if historial_clinico.estilo_vida.frecuencia_hace_ejercicio %}
+                        <p>{{ historial_clinico.estilo_vida.frecuencia_hace_ejercicio | join("") }}</p>
+                        {% else %}
+                        <p>No hay información disponible.</p>
+                        {% endif %}
+                        <small>¿Consume alcohol?</small> {% if historial_clinico.estilo_vida.consumo_alcohol %}
+                        <p>{{ historial_clinico.estilo_vida.consumo_alcohol | join("") }}</p>
+                        {% else %}
+                        <p>No hay información disponible.</p>
+                        {% endif %}
+                        <small>Frecuencia en la que consume alcohol: </small> {% if historial_clinico.estilo_vida.frecuencia_consumo_alcohol %}
+                        <p>{{ historial_clinico.estilo_vida.frecuencia_consumo_alcohol | join("") }}</p>
+                        {% else %}
+                        <p>No hay información disponible.</p>
+                        {% endif %}
+                        <small>¿Consume tabaco?</small> {% if historial_clinico.estilo_vida.consumo_tabaco %}
+                        <p>{{ historial_clinico.estilo_vida.consumo_alcohol | join("") }}</p>
+                        {% else %}
+                        <p>No hay información disponible.</p>
+                        {% endif %}
+                        <small>Frecuencia en la que consume tabaco: </small> {% if historial_clinico.estilo_vida.frecuencia_consumo_tabaco %}
+                        <p>{{ historial_clinico.estilo_vida.frecuencia_consumo_tabaco | join("") }}</p>
+                        {% else %}
+                        <p>No hay información disponible.</p>
+                        {% endif %}
+
+                        <div>
+                            <button class="btn btn-primary btn-sm" id="btn-edit{{ historial_clinico._id }}" data-bs-toggle="modal" data-bs-target="#modal1{{ historial_clinico._id }}">Actualizar datos</button>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="modal1{{ historial_clinico._id }}" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title fs-5" id="exampleModalLabel">Actualizar datos de estilo de vida</h3>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/Estilo_vida" method="POST">
+
+                                        <div class="form-group">
+                                            <label>Nivel de estres:</label>
+                                            <select type="text" class="form-control" value="{{ historial_clinico.estilo_vida.nivel_estres }}" id="nivel_estres" name="nivel_estres" required>
+                                                <option value="Bajo">Bajo</option>
+                                                <option value="Medio">Medio</option>
+                                                <option value="Alto">Alto</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>¿Hacer ejercico?:</label>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="ejercicio" id="ejercicio" value="Si" style="border-color: black;">
+                                                <label class="form-check-label" for="inlineRadio1">Si</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="ejercicio" id="ejercicio" value="No" style="border-color: black;">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Frecuencia en la que hace ejercicio:</label>
+                                            <select type="text" class="form-control" value="{{ historial_clinico.estilo_vida.frecuencia_hace_ejercicio }}" id="frecuencia_ejercicio" name="frecuencia_ejercicio" required>
+                                                <option value="Siempre">Siempre</option>
+                                                <option value="Nunca">Nunca</option>
+                                                <option value="Una vez a la semana">Una vez a la semana</option>
+                                                <option value="Dos veces a la semana">Dos veces a la semana</option>
+                                                <option value="Tres veces a la semana">Tres veces a la semana</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>¿Consume alcohol?:</label>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="alcohol" id="alcohol" value="Si" style="border-color: black;">
+                                                <label class="form-check-label" for="inlineRadio1">Si</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="alcohol" id="alcohol" value="No" style="border-color: black;">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Frecuencia en la que consume alcohol:</label>
+                                            <select type="text" class="form-control" value="{{ historial_clinico.estilo_vida.frecuencia_consumo_alcohol }}" id="frecuencia_alcohol" name="frecuencia_alcohol">
+                                                <option value="Siempre">Siempre</option>
+                                                <option value="Nunca">Nunca</option>
+                                                <option value="Una vez a la semana">Una vez a la semana</option>
+                                                <option value="Dos veces a la semana">Dos veces a la semana</option>
+                                                <option value="Tres veces a la semana">Tres veces a la semana</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>¿Consume tabaco?:</label>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="tabaco" id="tabaco" value="Si" style="border-color: black;">
+                                                <label class="form-check-label" for="inlineRadio1">Si</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="tabaco" id="tabaco" value="No" style="border-color: black;">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Frecuencia en la que consume tabaco:</label>
+                                            <select type="text" class="form-control" value="{{ historial_clinico.estilo_vida.frecuencia_consumo_tabaco }}" id="frecuencia_tabaco" name="frecuencia_tabaco">
+                                                <option value="Siempre">Siempre</option>
+                                                <option value="Nunca">Nunca</option>
+                                                <option value="Una vez a la semana">Una vez a la semana</option>
+                                                <option value="Dos veces a la semana">Dos veces a la semana</option>
+                                                <option value="Tres veces a la semana">Tres veces a la semana</option>
+                                            </select>
+                                        </div>
+
+                                        <input type="hidden" name="id_historial" value="{{ historial_clinico._id }}">
+                                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="card-body">
+                        <p>Historial clínico no encontrado.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Añadir mediciones</h5>
+                    </div>
+                    {% if historial_clinico %}
+                    <div class="card-body">
+                        <form action="/Añadir_medicaciones" method="POST">
+                            <div class="form-group">
+                                <label>Nombre del medicamento:</label>
+                                <input type="text" class="form-control" id="nombre_medicamento" name="nombre_medicamento" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Dosis:</label>
+                                <input type="text" class="form-control" id="dosis" name="dosis" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Frecuencia</label>
+                                <input type="text" class="form-control" id="frecuencia" name="frecuencia" required>
+                            </div>
+                            <input type="hidden" name="id_historial" value="{{ historial_clinico._id }}">
+                            <button type="submit" class="btn btn-primary">Guardar medicacion</button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <div class="card-body">
+                        <p>Historial clínico no encontrado.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Agregar resultados de laboratorio</h5>
+                    </div>
+                    {% if historial_clinico %}
+                    <div class="card-body">
+                        <form action="/Añadir_resultado_laboratorio" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="tipo_laboratorio">Tipo de examen:</label>
+                                <input type="text" class="form-control" id="tipo_laboratorio" name="tipo_laboratorio" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="resultado_laboratorio">Resultado:</label>
+                                <input type="text" class="form-control" id="resultado_laboratorio" name="resultado_laboratorio" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="documento_laboratorio">Adjuntar documento PDF:</label>
+                                <input type="file" class="form-control-file" id="documento_laboratorio" name="documento_laboratorio" accept=".pdf" required>
+                            </div>
+                            <input type="hidden" name="id_historial" value="{{ historial_clinico._id }}">
+                            <button type="submit" class="btn btn-primary">Guardar resultado de laboratorio</button>
+                        </form>
+
+                    </div>
+                    {% else %}
+                    <div class="card-body">
+                        <p>Historial clínico no encontrado.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Agregar imagenes medicas</h5>
+                    </div>
+                    {% if historial_clinico %}
+                    <div class="card-body">
+                        <form action="/Añadir_imagenes_medicas" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="tipo_imagen">Tipo de examen:</label>
+                                <input type="text" class="form-control" id="tipo_imagen" name="tipo_imagen" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="resultado_imagen">Resultado:</label>
+                                <input type="text" class="form-control" id="resultado_imagen" name="resultado_imagen" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="imagen_medica">Adjuntar imagen medica (JPG):</label>
+                                <input type="file" class="form-control-file" id="imagen_medica" name="imagen_medica" accept=".jpg" required>
+                            </div>
+                            <input type="hidden" name="id_historial" value="{{ historial_clinico._id }}">
+                            <button type="submit" class="btn btn-primary">Guardar resultado de laboratorio</button>
+                        </form>
+
+                    </div>
+                    {% else %}
+                    <div class="card-body">
+                        <p>Historial clínico no encontrado.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Añadir consulta medica</h5>
+                    </div>
+                    {% if historial_clinico %}
+                    <div class="card-body">
+                        <form action="/Añadir_consulta" method="POST">
+                            <div class="form-group">
+                                <label>Fecha de la consulta:</label>
+                                <input type="date" class="form-control" id="fecha_consulta" name="fecha_consulta">
+                            </div>
+                            <div class="form-group">
+                                <label>Motivo:</label>
+                                <input type="text" class="form-control" id="motivo" name="motivo" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Diagnostico</label>
+                                <input type="text" class="form-control" id="diagnostico" name="diagnostico" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tratamiento</label>
+                                <input type="text" class="form-control" id="tratamiento" name="tratamiento" required>
+                            </div>
+                            <input type="hidden" name="id_historial" value="{{ historial_clinico._id }}">
+                            <button type="submit" class="btn btn-primary">Guardar consulta medica</button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <div class="card-body">
+                        <p>Historial clínico no encontrado.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Añadir Vacunas</h5>
+                    </div>
+                    {% if historial_clinico %}
+                    <div class="card-body">
+                        <form action="/Añadir_vacuna" method="POST">
+                            <div class="form-group">
+                                <label>Nombre de la vacuna:</label>
+                                <input type="text" class="form-control" id="nombre_vacuna" name="nombre_vacuna" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de adminstracion:</label>
+                                <input type="date" class="form-control" id="fecha_administracion" name="fecha_administracion" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de primer refuerzo</label>
+                                <input type="date" class="form-control" id="fecha_primer_refuerzo" name="fecha_primer_refuerzo" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de segundo refuerzo (si es que es necesario)</label>
+                                <input type="date" class="form-control" id="fecha_segundo_refuerzo" name="fecha_segundo_refuerzo">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de segundo refuerzo (si es que es necesario)</label>
+                                <input type="date" class="form-control" id="fecha_tercer_refuerzo" name="fecha_tercer_refuerzo">
+                            </div>
+                            <input type="hidden" name="id_historial" value="{{ historial_clinico._id }}">
+                            <button type="submit" class="btn btn-primary">Guardar Registro de Vacuna</button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <div class="card-body">
+                        <p>Historial clínico no encontrado.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+    <!-- Bootstrap JS (jQuery incluido) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

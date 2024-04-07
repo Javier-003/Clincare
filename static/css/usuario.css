@@ -1,0 +1,133 @@
+html {
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+}
+  
+body {
+    width: 100%;
+    height: 100vh;
+    background-image: url("/static/img/close-up-stethoscope-blank-blue-background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+  
+  
+.navbar ul li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 20px;
+    position: relative;
+  
+}
+  
+.navbar ul li a {
+    text-decoration: none;
+    color: #fff;
+    text-transform: uppercase;
+}
+  
+.navbar ul li ::after {
+    content: '';
+    height: 3px;
+    width: 0;
+    background: #009688;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    transition: 0.5s;
+}
+  
+.navbar ul li :hover:after {
+    width: 100%;
+}
+  
+  
+.row p {
+    margin: 20px auto;
+    line-height: 25px;
+    text-align: justify;
+    font-size: 20px;
+    margin-left: 5%;
+    margin-right: 5%;
+    min-width: 250px;
+    color: #fff;
+}
+  
+.ripple-btn {
+    padding: 1em 2em;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #009688;
+    transition: all 1000ms;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    outline: 2px solid #009688;
+    margin-right: 20px;
+    margin-top: 40px;
+}
+  
+.ripple-btn:hover {
+    color: #ffffff;
+    transform: scale(1.1);
+    outline: 2px solid #70bdca;
+    box-shadow: 4px 5px 17px -4px #268391;
+}
+  
+.ripple-btn::before {
+    content: "";
+    position: absolute;
+    left: -50px;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: #1c4aff;
+    transform: skewX(45deg);
+    z-index: -1;
+    transition: width 1000ms;
+}
+  
+.ripple-btn:hover::before {
+    width: 250%;
+}
+  
+.buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin: 0 auto;
+    margin-bottom: 40px; 
+}
+  
+  
+@media screen and (max-width: 768px) {
+  .ripple-btn {
+        font-size: 12px;
+        padding: 0.8em 1.5em;
+        margin-right: 5px;
+        width: 100%;
+    }
+}
+  
+.logo {
+    max-width: 210px; 
+    height: auto; 
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    
+}
+  
+.container h1{
+    font-size: 60px;
+}
+  
+  

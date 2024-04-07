@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!--  -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--  -->
+    <title>Clincare</title>
+    <!--  -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/Captura_de_pantalla_2024-03-10_082703-removebg-preview.png') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/usuario.css') }}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a href="{{ url_for('index') }}"><img  src="{{ url_for('static', filename='img/Captura_de_pantalla_2024-03-10_082703-removebg-preview.png') }}" alt="Logo" style="width: 100px; height: auto;"></a>
+    </nav>
+
+
+    <div class="container">
+        <h2 class="text-center mb-5 text-black">Clincare: Tu Historial Clínico en Línea</h2>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <p style="color: black;">Clincare es tu puerta de entrada a un cuidado de la salud más inteligente y personalizado. 
+             Con tecnología de vanguardia, Clincare pone tu historial clínico en la palma de tu mano, directamente desde tu dispositivo favorito.
+            </p>
+            <p style="color: black;">Con acceso instantáneo y seguro a tus registros médicos, Clincare te permite llevar un seguimiento completo de tu salud en un solo lugar. 
+                Desde tus diagnósticos hasta tus tratamientos y medicaciones, cada detalle está organizado de manera clara y accesible.
+            </p>
+
+            <div class="buttons-container">
+                <a href="{{ url_for('login') }}"><button class="ripple-btn "><span></span>Iniciar Sesión</button></a>
+                <a href="{{ url_for('registro') }}"><button class="ripple-btn"><span></span>Registro</button></a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- META -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/static/img/Captura_de_pantalla_2024-03-10_082703-removebg-preview.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login2.css') }}">
+
+    <!-- TITULO -->
+    <title>Inicio de sesión</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a href="{{ url_for('index') }}"><img  src="{{ url_for('static', filename='img/Captura_de_pantalla_2024-03-10_082703-removebg-preview.png') }}" alt="Logo" style="width: 100px; height: auto;"></a>
+    </nav>
+   
+
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Tabs Titles -->
+            <h2 class="active"> Iniciar Sesión </h2>
+
+
+            <!-- Icon -->
+            <div class="fadeIn first">
+                <img src="{{ url_for('static', filename='img/enfermedad-del-corazon.png') }}" id="icon" alt="User Icon" />
+            </div>
+
+
+            <!-- Login Form -->
+            <form action="/login" method="post">
+                <div class="form-group">
+                    <input type="email" class="form-control" id="correo" name="correo" placeholder="Ingresa tu correo electrónico" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="contraseña" name="password" placeholder="Ingresa tu contraseña" required minlength="8">
+                </div>
+                <div class="form-group">
+                    <label for="captcha">CAPTCHA:</label>
+                    <h4> {{ captcha }} </h4> 
+                    <input type="text" id="captcha" name="captcha" placeholder="Ingresa el CAPTCHA" required>
+                </div>
+                <button class="btn btn-primary btn-block">INICIAR SESIÓN</button>
+                {% for message in get_flashed_messages() %}
+                    <div>{{ message }}</div>
+                {% endfor %}
+            </form>
+
+            <!-- Remind Password -->
+            <div id="formFooter">
+                <p>¿No tienes una cuenta? <a href="{{ url_for( 'registro') }}">Crear una</a></p>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

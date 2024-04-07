@@ -1,0 +1,324 @@
+html {
+    background-image: url("/static/img/close-up-stethoscope-blank-blue-background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+body {
+    font-family: "Segoe UI", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+a {
+    color: #92badd;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+h2 {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 40px 8px 10px;
+    color: #ccc;
+}
+
+
+/* STRUCTURE */
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
+}
+
+#formContent {
+    border-radius: 10px;
+    background: #fff;
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+#formFooter {
+    background-color: #f6f6f6;
+    border-top: 1px solid #dce8f1;
+    padding: 20px;
+    text-align: center;
+    border-radius: 0 0 10px 10px;
+}
+
+
+/* TABS */
+
+h2.inactive {
+    color: #ccc;
+}
+
+h2.active {
+    color: #0d0d0d;
+    border-bottom: 2px solid #5fbae9;
+}
+
+
+/* FORM TYPOGRAPHY */
+
+input[type=email],
+input[type=password],
+input[type=text] {
+    background-color: #f6f6f6;
+    border: none;
+    color: #0d0d0d;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    margin: 5px;
+    width: 100%;
+    border: 2px solid #f6f6f6;
+    transition: all 0.5s ease-in-out;
+    border-radius: 5px;
+}
+
+input[type=email]:focus,
+input[type=password]:focus,
+input[type=text]:focus {
+    background-color: #fff;
+    border-bottom: 2px solid #5fbae9;
+}
+
+input[type=email]::placeholder,
+input[type=password]::placeholder,
+input[type=text]::placeholder {
+    color: #ccc;
+}
+
+
+/* ANIMATIONS */
+
+.fadeInDown {
+    animation: fadeInDown 1s both;
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+/* OTHERS */
+
+*:focus {
+    outline: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+#icon {
+    width: 40%;
+    /* Ajusta el ancho de la imagen según tus necesidades */
+}
+
+
+/* Se establece el estilo del botón de iniciar sesión */
+
+.btn-primary {
+    background-color: #24afff;
+    /* Color de fondo */
+    border: none;
+    /* Sin borde */
+    color: rgb(4, 0, 0);
+    /* Color del texto */
+    padding: 15px 32px;
+    /* Relleno */
+    text-align: center;
+    /* Alineación del texto */
+    text-decoration: none;
+    /* Sin decoración de texto */
+    display: inline-block;
+    /* Mostrar como bloque en línea */
+    font-size: 16px;
+    /* Tamaño de fuente */
+    margin: 5px;
+    /* Márgenes */
+    cursor: pointer;
+    /* Cursor de puntero */
+    border-radius: 5px;
+    /* Radio de borde */
+    transition: background-color 0.3s;
+    /* Transición de color de fondo */
+}
+
+
+/* Estilo hover del botón de iniciar sesión */
+
+.btn-primary:hover {
+    background-color: #a8d1f6;
+    /* Color de fondo al pasar el ratón */
+}
+
+
+/* Estilo de los campos de correo electrónico y contraseña */
+
+input[type=email],
+input[type=password],
+input[type=text] {
+    background-color: #f6f6f6;
+    /* Color de fondo */
+    border: none;
+    /* Sin borde */
+    color: #0d0d0d;
+    /* Color del texto */
+    padding: 15px 20px;
+    /* Relleno */
+    text-align: center;
+    /* Alineación del texto */
+    text-decoration: none;
+    /* Sin decoración de texto */
+    display: block;
+    /* Mostrar como bloque */
+    font-size: 16px;
+    /* Tamaño de fuente */
+    margin: 10px auto;
+    /* Márgenes (centrado horizontalmente) */
+    width: 80%;
+    /* Ancho del campo */
+    border-radius: 5px;
+    /* Radio de borde */
+    transition: background-color 0.3s, border-color 0.3s;
+    /* Transiciones */
+}
+
+
+/* Estilo cuando los campos de correo electrónico y contraseña tienen el foco */
+
+input[type=email]:focus,
+input[type=password]:focus {
+    background-color: #fff;
+    /* Cambio de color de fondo */
+    border: 2px solid #0f7bff;
+    /* Borde resaltado */
+}
+
+
+/* ESTRUCTURA */
+
+
+/* Se define el estilo del formulario */
+
+#formContent {
+    border-radius: 10px;
+    /* Se establece el radio de borde */
+    background: rgba(255, 255, 255, 0.1);
+    /* Color de fondo casi invisible */
+    padding: 40px;
+    /* Relleno interior del formulario */
+    max-width: 400px;
+    /* Se establece el ancho máximo del formulario */
+    width: 100%;
+    /* Se establece el ancho del formulario al 100% */
+    box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+    /* Se agrega una sombra */
+    text-align: center;
+    /* Se alinea el texto al centro */
+}
+
+
+/* Estilo del enlace "Crear una cuenta aquí" */
+
+#formFooter a {
+    color: #001f3f;
+    /* Color azul marino */
+    text-decoration: none;
+    /* Sin subrayado */
+    transition: color 0.3s;
+    /* Transición suave del color */
+}
+
+
+/* Cambio de color al pasar el ratón */
+
+#formFooter a:hover {
+    color: #003366;
+    /* Color azul más oscuro al pasar el ratón */
+}
+
+* {
+    font-family: "Segoe UI", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+/* CSS */
+
+.logo-container {
+    position: static;
+    /* Posicionamiento fijo para mantener el logo en la esquina */
+    top: 20px;
+    /* Distancia desde la parte superior */
+    right: 20px;
+    /* Distancia desde la parte derecha */
+    z-index: 9999;
+    /* Asegura que el logo esté en la parte superior */
+}
+
+.logo {
+    background-image: url("/static/img/Captura_de_pantalla_2024-03-10_082703-removebg-preview.png");
+    background-size: contain;
+    /* Ajusta el tamaño del logo */
+    background-repeat: no-repeat;
+    width: 100px;
+    /* Ajusta el tamaño del logo según tus necesidades */
+    height: 100px;
+    /* Ajusta el tamaño del logo según tus necesidades */
+}
+
+#formFooter a {
+    text-decoration: underline;
+    /* Aplica subrayado al enlace */
+}
+
+
+.navbar ul li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 20px;
+    position: relative;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.navbar ul li ::after {
+    content: '';
+    height: 3px;
+    width: 0;
+    background: #009688;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    transition: 0.5s;
+}
+
+.navbar ul li :hover:after {
+    width: 100%;
+}
